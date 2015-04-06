@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+{% csrf_token %}
+<div class="container alert-info" style="padding-top: 16px;" >{{ question.author  }} {{question.pretty_pub_date }}</div>
+<div id="question-header">
+	<h1 itemprop="name">{{ question.question_title }}</h1>
+</div><hr>
+<div class="container alert-dismissable">
+    {{ question.question_text }}
+</div><hr>
+
+
+{% for comment in object_list %}
+     <div class="alert-info"><img src="{{comment.avatar24}}"/> {{ comment.author.username }}<span width="100px">{{ comment.pretty_pub_date }}</span></div>
+     <div class="alert">{{ comment.comment_text }}</div>
+ {% empty %}
+    <p>No comments yet. You may be first!</p>
+{% endfor %}
+{#</ul>#}
+{#<a href="{% url 'questions:questions' question.id %}">Vote again?</a>#}
+
+{% if is_paginated %}
+    <div class="pagination">
+        <span class="page-links">
+        {% if paginator.num_pages > 1 %}
+            {% if page_obj.has_previous %}
+                <a href="{% url 'questions:question' question.id page_obj.previous_page_number %}">&larr;</a>
+            {% endif %}
+            <span class="current_page">{{ page_obj.number }} / {{ paginator.num_pages }}</span>
+            {% if page_obj.has_next %}
+                <a href="{% url 'questions:question' question.id page_obj.next_page_number %}" >&rarr;</a>
+            {% endif %}
+        {% endif %}
+        </span>
+    </div>
+{% endif %}
+
+
+{#<form class="form-group-lg" action="{% url 'questions:question' question_id=question.id page=1 %}" method="post">#}
+<form class="form-group-lg" action="{% url 'questions:new_comment' question_id=question.id %}" method="post">
+    {% csrf_token %}
+    {{ form.comment_text }}
+    <button class="btn btn-large btn-primary btn-block" type="submit">Add comment</button>
+</form>
+
+
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+
+<form method="post" action="" class="form-signin" role="form">
+<h1>Registration</h1>
+{% csrf_token %}
+<dl class="register">
+{% for field in form %}
+    <dt class="clearfix">{{ field.label_tag }}</dt>
+    <dd class="clearfix">{{ field }}
+    {% if field.help_text %}<div class="clearfix">{{ field.help_text }}</div>{% endif %}
+    {% if field.errors %}<div class="alert-danger" class="clearfix">{{ field.errors }}</div>{% endif %}
+    </dd>
+{% endfor %}
+</dl>
+<input type="submit" value="Register" class="btn btn-large btn-primary"/>
+</form>
+
+
+{#<form method="post" action="">#}
+{#{% csrf_token %}#}
+{#<dl class="register">#}
+{#{% for field in form %}#}
+{##}
+{#    <dt>{{ field.label_tag }}</dt>#}
+{#    <dd class="clearfix" class="input-block-level">{{ field class="input-block-level" }}#}
+{#    {% if field.help_text %}<div>{{ field.help_text }}</div>{% endif %}#}
+{#    {% if field.errors %}<div class="alert-danger">{{ field.errors }}</div>{% endif %}#}
+{#    </dd>#}
+{#{% endfor %}#}
+{#</dl>#}
+{#<input type="submit" value="Register" class="btn btn-lg btn-primary btn-block clearfix"/>#}
+{#</form>#}
+
+
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+{% csrf_token %}
+
+<div class="list-group">
+{#<div class="container alert-info" style="padding-top: 16px;" ><h3> Questions</h3></div>#}
+
+<div class="panel panel-default clearfix" style="padding-top: 24px; ">
+  <div class="panel-heading">
+    <h3 class="panel-title">Fresh questions</h3>
+  </div>
+</div>
+{% for question in latest_question_list %}
+     <a href="{% url 'questions:question' question.pk 1 %}" class="list-group-item"> {{ question.get_descr }}</a>
+ {% empty %}
+    <p>No questions</p>
+{% endfor %}
+</ul>
+</div>
+
+    {% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+            {% if paginator.num_pages > 1 %}
+                {% if page_obj.has_previous %}
+                    <a href="{% url "questions:question_list" page_obj.previous_page_number %}">&larr;</a>
+                {% endif %}
+                <span class="current_page">{{ page_obj.number }} / {{ paginator.num_pages }}</span>
+                {% if page_obj.has_next %}
+                    <a href="{% url "questions:question_list" page_obj.next_page_number %}" >&rarr;</a>
+                {% endif %}
+            {% endif %}
+            </span>
+        </div>
+    {% endif %}
+
+{% endblock %}

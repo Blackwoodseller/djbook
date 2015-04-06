@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+{% csrf_token %}
+<div class="jumbotron">
+  <div class="container">
+    <h1>Questions</h1>
+    <p>... and some answers</p>
+    <p><a class="btn btn-primary btn-lg" href="{% url 'questions:question_list' 1 %}" role="button">Learn more &raquo;</a></p>
+  </div>
+</div>
+{% endblock %}

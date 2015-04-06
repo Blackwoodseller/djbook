@@ -1,0 +1,13 @@
+<{% extends "base.html" %}
+{% block content %}
+{% csrf_token %}
+<div class="container alert-info" style="padding-top: 16px;" ><h3>New Question</h3></div>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<form class="form-group-lg" action="{% url 'questions:new_question' %}" method="post">
+    {% csrf_token %}
+    {{ form.question_title }}
+    {{ form.question_text }}
+    <button class="btn btn-large btn-primary btn-block" type="submit">Create question</button>
+</form>
+
+{% endblock %}

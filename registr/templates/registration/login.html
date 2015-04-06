@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <form  action='.' method='post' class="form-signin" role="form" >
+        <h2 class="form-signin-heading">Please sign in</h2>
+        {% csrf_token %}
+        <input type="text" name="username" value="" id="username" class="form-control" placeholder="Login" required autofocus>
+        <input type="password"  name="password" value="" id="password" class="form-control" placeholder="Password" required>
+        <input type="hidden" name="next" value="{% url 'questions:question_list' 1%}">
+{#               value="../../questions">#}
+        {% if form.errors %}
+            <p class="error">Sorry, incorrect login or password</p>
+        {% endif %}
+        <button class="btn btn-large btn-primary btn-block" type="submit">Sign in</button>
+{#         class="btn btn-large btn-primary"#}
+        <div class="col-sm-4 social-buttons">
+            <a class="btn btn-block btn-social btn-facebook" href="{% url "socialauth_begin" backend="facebook" %}">
+                <i class="fa fa-facebook"></i>
+                Facebook
+            </a>
+        </div>
+        <div class="col-sm-4 social-buttons">
+            <a class="btn btn-block btn-social btn-vkontakte" href=" {% url "socialauth_begin" backend="vkontakte-oauth" %}">
+                <i class="fa fa-vkontakte"></i>
+                VKontakte
+            </a>
+        </div>
+    </form>
+
+
+
+{% endblock %}
